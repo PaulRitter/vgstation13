@@ -105,6 +105,7 @@ var/list/impact_master = list()
 	var/rotate = 1 //whether the projectile is rotated based on angle or not
 	var/travel_range = 0	//if set, the projectile will be deleted when its distance from the firing location exceeds this
 	var/decay_type = null	//if set, along with travel range, will drop a new item of this type when the projectile exceeds its course
+	var/params_to_keep = null
 
 /obj/item/projectile/New()
 	..()
@@ -515,6 +516,42 @@ var/list/impact_master = list()
 			tS = 0
 	return
 
+/obj/item/projectile/proc/do_fire(var/mob/user, var/obj/item/weapon/gun/source, var/atom/target, var/turf/curloc, var/delay_user, var/sel_zone = LIMB_CHEST, var/is_silenced = FALSE, var/is_inaccurate = FALSE, var/color, var/params, var/turf/start_override)
+	firer = user
+	def_zone = sel_zone
+	silenced = is_silenced
+	inaccurate = is_inaccurate
+	original = target
+	var/turf/start
+	if(start_override)
+		start = start_override
+	else
+		start = get_turf(source)
+	forceMove(start)
+	starting = start
+	shot_from = source
+	if(delay_user)
+		user.delayNextAttack(delay_user) // TODO: Should be delayed per-gun.
+	silenced = silenced
+	current = curloc
+	OnFired()
+	var/turf/targloc = get_turf(target)
+	yo = targloc.y - curloc.y
+	xo = targloc.x - curloc.x
+	inaccurate = (istype(user.locked_to, /obj/structure/bed/chair/vehicle))
+	if(color)
+		apply_projectile_color(color)
+	if(params)
+		params_to_keep = params
+		var/list/mouse_control = params2list(params)
+		if(mouse_control["icon-x"])
+			p_x = text2num(mouse_control["icon-x"])
+		if(mouse_control["icon-y"])
+			p_y = text2num(mouse_control["icon-y"])
+
+	spawn()
+		process()
+
 /obj/item/projectile/proc/dumbfire(var/dir) // for spacepods, go snowflake go
 	if(!dir)
 		//del(src)
@@ -560,7 +597,7 @@ var/list/impact_master = list()
 	override_target_Y = override_starting_Y+dist_y
 	target = locate(override_target_X,override_target_Y,z)
 
-/obj/item/projectile/proc/rebound(var/atom/A)//Projectiles bouncing off walls and obstacles
+/obj/item/projectile/proc/get_rebound_angle(var/atom/A)
 	var/turf/T = get_turf(src)
 	var/turf/W = get_turf(A)
 	playsound(T, bounce_sound, 30, 1)
@@ -618,7 +655,10 @@ var/list/impact_master = list()
 		else if(distx < 0)
 			newangle += 360
 
-	target_angle = round(newangle)
+	return round(newangle)
+
+/obj/item/projectile/proc/rebound(var/atom/A)//Projectiles bouncing off walls and obstacles
+	var/target_angle = get_rebound_angle(A)
 
 	if(linear_movement)
 		var/matrix/projectile_matrix = turn(matrix(),target_angle+45)

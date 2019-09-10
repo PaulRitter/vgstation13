@@ -291,6 +291,11 @@ var/list/beam_master = list()
 
 		turfs.len = 0
 
+/obj/item/projectile/beam/rebound(atom/A)
+	var/target_angle = get_rebound_angle(A)
+
+	do_fire(firer, shot_from, get_step(get_turf(A), angle2dir(target_angle)), current, null, def_zone, silenced, inaccurate, color, params_to_keep, get_turf(A))
+
 // Special laser the captains gun uses
 /obj/item/projectile/beam/captain
 	name = "captain laser"

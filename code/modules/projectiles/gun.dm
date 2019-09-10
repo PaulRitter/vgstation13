@@ -215,12 +215,6 @@
 			return
 	if(!istype(src, /obj/item/weapon/gun/energy/tag))
 		log_attack("[user.name] ([user.ckey]) fired \the [src] (proj:[in_chamber.name]) at [originaltarget] [ismob(target) ? "([originaltarget:ckey])" : ""] ([originaltarget.x],[originaltarget.y],[originaltarget.z])[struggle ? " due to being disarmed." :""]" )
-	in_chamber.firer = user
-
-	if(user.zone_sel)
-		in_chamber.def_zone = user.zone_sel.selecting
-	else
-		in_chamber.def_zone = LIMB_CHEST
 
 	if(targloc == curloc)
 		target.bullet_act(in_chamber)
@@ -260,29 +254,14 @@
 
 	play_firesound(user, reflex)
 
-	in_chamber.original = target
-	in_chamber.forceMove(get_turf(user))
-	in_chamber.starting = get_turf(user)
-	in_chamber.shot_from = src
-	user.delayNextAttack(delay_user) // TODO: Should be delayed per-gun.
-	in_chamber.silenced = silenced
-	in_chamber.current = curloc
-	in_chamber.OnFired()
-	in_chamber.yo = targloc.y - curloc.y
-	in_chamber.xo = targloc.x - curloc.x
-	in_chamber.inaccurate = (istype(user.locked_to, /obj/structure/bed/chair/vehicle))
-	if(projectile_color)
-		in_chamber.apply_projectile_color(projectile_color)
-	if(params)
-		var/list/mouse_control = params2list(params)
-		if(mouse_control["icon-x"])
-			in_chamber.p_x = text2num(mouse_control["icon-x"])
-		if(mouse_control["icon-y"])
-			in_chamber.p_y = text2num(mouse_control["icon-y"])
+	var/target_zone
+	if(user.zone_sel)
+		target_zone = user.zone_sel.selecting
+	else
+		target_zone = LIMB_CHEST
+	
+	in_chamber.do_fire(user, src, target, curloc, delay_user, target_zone, silenced, (istype(user.locked_to, /obj/structure/bed/chair/vehicle)), projectile_color, params)
 
-	spawn()
-		if(in_chamber)
-			in_chamber.process()
 	sleep(1)
 	in_chamber = null
 
