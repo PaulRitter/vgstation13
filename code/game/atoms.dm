@@ -919,3 +919,6 @@ its easier to just keep the beam vertical.
 	return 1
 /atom/proc/setPersistenceAge()
 	return
+
+/atom/proc/interaction_flags()
+	return
