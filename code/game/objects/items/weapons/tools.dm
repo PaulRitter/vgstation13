@@ -75,6 +75,9 @@
 	force = 15.0
 	throwforce = 12.0
 
+/obj/item/weapon/wrench/socket/interaction_flags()
+	return ..() | CAN_WRENCH_STRONG
+
 /*
  * Screwdriver
  */

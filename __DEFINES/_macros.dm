@@ -136,8 +136,6 @@
 
 #define istool(A) is_type_in_list(A, common_tools)
 
-#define can_wrench(A) A.interaction_flags() & CAN_WRENCH
-
 #define iswelder(A) istype(A, /obj/item/weapon/weldingtool)
 
 #define isshovel(A) istype(A, /obj/item/weapon/pickaxe/shovel)
@@ -165,8 +163,6 @@
 #define iscrowbar(A) istype(A, /obj/item/weapon/crowbar)
 
 #define issolder(A) istype(A, /obj/item/weapon/solder)
-
-#define issocketwrench(A) istype(A, /obj/item/weapon/wrench/socket)
 
 #define isswitchtool(A) istype(A, /obj/item/weapon/switchtool)
 
@@ -231,6 +227,11 @@
 #define isbelt(O) (istype(O, /obj/item/weapon/storage/belt) || istype(O, /obj/item/red_ribbon_arm))
 
 #define format_examine(A,B) "<span class = 'info'><a HREF='?src=\ref[user];lookitem=\ref[A]'>[B].</a></span>"
+
+//Interaction makros
+#define can_wrench(A) A.interaction_flags() & CAN_WRENCH
+
+#define can_wrench_strong(A) A.interaction_flags() & CAN_WRENCH_STRONG
 
 //Macros for roles/antags
 #define isfaction(A) (istype(A, /datum/faction))
