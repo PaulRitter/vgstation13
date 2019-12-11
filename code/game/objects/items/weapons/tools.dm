@@ -49,7 +49,7 @@
 	attack_verb = list("bashes", "batters", "bludgeons", "whacks")
 
 /obj/item/weapon/wrench/interaction_flags()
-	return ..() | CAN_WRENCH
+	return ..() | INTERACT_CAN_WRENCH
 
 /obj/item/weapon/wrench/attackby(obj/item/weapon/W, mob/user)
 	..()
@@ -76,7 +76,7 @@
 	throwforce = 12.0
 
 /obj/item/weapon/wrench/socket/interaction_flags()
-	return ..() | CAN_WRENCH_STRONG
+	return ..() | INTERACT_CAN_WRENCH_STRONG
 
 /*
  * Screwdriver
