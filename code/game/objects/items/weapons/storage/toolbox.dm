@@ -41,6 +41,9 @@
 
 //see /obj/item/weapon/storage/toolbox/mechanical/attackby(var/obj/item/stack/tile/plasteel/T, mob/user as mob) override in floorbot.dm
 
+/obj/item/weapon/storage/toolbox/interaction_flags()
+	return ..() | INTERACT_CAN_HAMMER
+
 /obj/item/weapon/storage/toolbox/suicide_act(mob/user)
 	to_chat(viewers(user), "<span class='danger'>[user] is [pick("staving","robusting")] \his head in with the [src.name]! It looks like \he's  trying to commit suicide!</span>")
 	return (SUICIDE_ACT_BRUTELOSS)

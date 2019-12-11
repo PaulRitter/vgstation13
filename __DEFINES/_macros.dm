@@ -140,8 +140,6 @@
 
 #define isshovel(A) istype(A, /obj/item/weapon/pickaxe/shovel)
 
-#define ishammer(A) is_type_in_list(A, list(/obj/item/weapon/hammer, /obj/item/weapon/storage/toolbox))
-
 #define iscablecoil(A) istype(A, /obj/item/stack/cable_coil)
 
 #define iscoin(A) is_type_in_list(A, list(/obj/item/weapon/coin, /obj/item/weapon/reagent_containers/food/snacks/chococoin))
@@ -232,6 +230,8 @@
 #define can_wrench(A) A.interaction_flags() & INTERACT_CAN_WRENCH
 
 #define can_wrench_strong(A) A.interaction_flags() & INTERACT_CAN_WRENCH_STRONG
+
+#define can_hammer(A) A.interaction_flags() & INTERACT_CAN_HAMMER
 
 //Macros for roles/antags
 #define isfaction(A) (istype(A, /datum/faction))

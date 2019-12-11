@@ -494,3 +494,6 @@ obj/item/weapon/banhammer/admin
 	inhand_states = list("left_hand" = 'icons/mob/in-hand/left/newsprites_lefthand.dmi', "right_hand" = 'icons/mob/in-hand/right/newsprites_righthand.dmi')
 	force = 8
 	hitsound = 'sound/weapons/toolbox.ogg'
+
+/obj/item/weapon/hammer/interaction_flags()
+	return ..() | INTERACT_CAN_HAMMER
