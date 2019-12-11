@@ -49,7 +49,7 @@
 	attack_verb = list("bashes", "batters", "bludgeons", "whacks")
 
 /obj/item/weapon/wrench/interaction_flags()
-	return ..() | iswrench
+	return ..() | CAN_WRENCH
 
 /obj/item/weapon/wrench/attackby(obj/item/weapon/W, mob/user)
 	..()
