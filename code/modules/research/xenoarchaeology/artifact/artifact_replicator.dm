@@ -107,7 +107,7 @@
 			qdel(src)
 
 /obj/machinery/replicator/attackby(var/obj/O, var/mob/user)
-	if(iswrench(O))
+	if(can_wrench(O))
 		return ..()
 	else if(O.force > 10)
 		log_attack("<font color='red'>[user] damaged [src]/([formatJumpTo(src)]) with [O]</font>")

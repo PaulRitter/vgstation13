@@ -28,7 +28,7 @@
 	if(istype(W, /obj/item/device/analyzer))
 		bombtank.attackby(W, user)
 		return
-	if(iswrench(W) && !status)	//This is basically bomb assembly code inverted. apparently it works.
+	if(can_wrench(W) && !status)	//This is basically bomb assembly code inverted. apparently it works.
 
 		to_chat(user, "<span class='notice'>You disassemble [src].</span>")
 

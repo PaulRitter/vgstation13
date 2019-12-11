@@ -83,7 +83,7 @@ var/obj/item/weapon/disk/nuclear/nukedisk
 				return
 
 			if(3)
-				if(iswrench(O))
+				if(can_wrench(O))
 
 					user.visible_message("[user] begins unwrenching the anchoring bolts on [src].", "You begin unwrenching the anchoring bolts...")
 

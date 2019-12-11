@@ -125,7 +125,7 @@ var/list/obj/machinery/flasher/flashers = list()
 			src.flash()
 
 /obj/machinery/flasher/portable/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	if (iswrench(W))
+	if (can_wrench(W))
 		add_fingerprint(user)
 		src.anchored = !src.anchored
 

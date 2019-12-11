@@ -379,7 +379,7 @@
 	song.interact(user)
 
 /obj/structure/piano/attackby(obj/item/O, mob/user, params)
-	if (iswrench(O))
+	if (can_wrench(O))
 		if (!anchored && !istype(get_turf(src),/turf/space))
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 			user << "<span class='notice'> You begin to tighten \the [src] to the floor...</span>"

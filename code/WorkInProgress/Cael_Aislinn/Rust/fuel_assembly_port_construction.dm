@@ -11,7 +11,7 @@
 	siemens_coefficient = 1
 
 /obj/item/mounted/frame/rust_fuel_assembly_port/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	if (iswrench(W))
+	if (can_wrench(W))
 		new /obj/item/stack/sheet/plasteel( get_turf(src.loc), 12 )
 		qdel(src)
 		return

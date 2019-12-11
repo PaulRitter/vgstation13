@@ -531,7 +531,7 @@
 	. = ..()
 	if(.)
 		return .
-	if(iswrench(W))
+	if(can_wrench(W))
 		to_chat(user, "<span class='notice'>Deconstructing \the [src]...</span>")
 		playsound(src, 'sound/items/Ratchet.ogg', 100, 1)
 		if(do_after(user, src,50))

@@ -418,7 +418,7 @@ var/list/manifold_pipes = list(PIPE_MANIFOLD4W, PIPE_INSUL_MANIFOLD4W, PIPE_HE_M
 /obj/item/pipe/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
 	..()
 	//*
-	if (!iswrench(W))
+	if (!can_wrench(W))
 		return ..()
 	if (!isturf(src.loc))
 		return 1
@@ -562,7 +562,7 @@ var/list/manifold_pipes = list(PIPE_MANIFOLD4W, PIPE_INSUL_MANIFOLD4W, PIPE_HE_M
 /obj/item/pipe_meter/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
 	..()
 
-	if (!iswrench(W))
+	if (!can_wrench(W))
 		return ..()
 	var/obj/machinery/atmospherics/pipe/pipe
 	for(var/obj/machinery/atmospherics/pipe/P in src.loc)
@@ -598,7 +598,7 @@ var/list/manifold_pipes = list(PIPE_MANIFOLD4W, PIPE_INSUL_MANIFOLD4W, PIPE_HE_M
 
 /obj/item/pipe_gsensor/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
 	..()
-	if (!iswrench(W))
+	if (!can_wrench(W))
 		return ..()
 	new/obj/machinery/air_sensor( src.loc )
 	playsound(src, 'sound/items/Ratchet.ogg', 50, 1)

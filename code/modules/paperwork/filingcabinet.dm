@@ -48,7 +48,7 @@
 		flick("[initial(icon_state)]-open",src)
 		to_chat(user, "<span class='notice'>You empty the [C] into \the [src].</span>")
 		updateUsrDialog()
-	else if(iswrench(P))
+	else if(can_wrench(P))
 		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
 		anchored = !anchored
 		to_chat(user, "<span class='notice'>You [anchored ? "wrench" : "unwrench"] \the [src].</span>")

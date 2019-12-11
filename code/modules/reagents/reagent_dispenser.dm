@@ -23,7 +23,7 @@
 	return ..()
 
 /obj/structure/reagent_dispensers/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	if(iswrench(W) && wrenchable())
+	if(can_wrench(W) && wrenchable())
 		return wrenchAnchor(user)
 
 /obj/structure/reagent_dispensers/examine(mob/user)
@@ -424,7 +424,7 @@
 		AM.forceMove(loc)
 
 /obj/structure/reagent_dispensers/cauldron/barrel/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	if(iswrench(W))
+	if(can_wrench(W))
 		return
 	if(istype(W,/obj/item/weapon/grab))
 		var/obj/item/weapon/grab/G = W

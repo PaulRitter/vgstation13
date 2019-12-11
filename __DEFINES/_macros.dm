@@ -136,7 +136,7 @@
 
 #define istool(A) is_type_in_list(A, common_tools)
 
-#define iswrench(A) A.interaction_flags() & iswrench
+#define can_wrench(A) A.interaction_flags() & iswrench
 
 #define iswelder(A) istype(A, /obj/item/weapon/weldingtool)
 

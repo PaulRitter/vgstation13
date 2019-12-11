@@ -202,7 +202,7 @@
 			nicetype = "pipe"
 			ispipe = 1
 
-	if(iswrench(I))
+	if(can_wrench(I))
 		if(anchored) //This the only part where we're DETACHING the pipe, so it doesn't really need to check anything.
 			anchored = 0
 			if(ispipe)

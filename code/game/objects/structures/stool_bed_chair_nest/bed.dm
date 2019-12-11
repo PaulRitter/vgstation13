@@ -149,7 +149,7 @@
 	..()
 
 /obj/structure/bed/attackby(obj/item/weapon/W, mob/user)
-	if(iswrench(W))
+	if(can_wrench(W))
 		playsound(src, 'sound/items/Ratchet.ogg', 50, 1)
 		drop_stack(sheet_type, loc, 2, user)
 		qdel(src)

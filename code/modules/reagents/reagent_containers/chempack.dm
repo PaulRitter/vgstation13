@@ -191,7 +191,7 @@ obj/item/weapon/reagent_containers/chempack/verb/set_fill()
 		else
 			return
 
-	if(iswrench(W))
+	if(can_wrench(W))
 		if (stage)
 			to_chat(user, "<span class='warning'>You need to secure the maintenance panel before you can access the auxiliary chamber bolts!</span>")
 			return

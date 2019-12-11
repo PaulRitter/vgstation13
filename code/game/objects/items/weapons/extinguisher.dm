@@ -84,7 +84,7 @@
 /obj/item/weapon/extinguisher/attackby(obj/item/W, mob/user)
 	if(user.stat || user.restrained() || user.lying)
 		return
-	if (iswrench(W))
+	if (can_wrench(W))
 		if(!is_open_container())
 			user.visible_message("[user] begins to unwrench the fill cap on \the [src].","<span class='notice'>You begin to unwrench the fill cap on \the [src].</span>")
 			if(do_after(user, src, 25))

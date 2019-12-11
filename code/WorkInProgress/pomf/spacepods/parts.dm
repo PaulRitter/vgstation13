@@ -78,7 +78,7 @@
 				//log_admin("Repositioning")
 				pod.forceMove(F.loc)
 			qdel(F)
-	if(iswrench(O))
+	if(can_wrench(O))
 		to_chat(user, "<span class='notice'>You [!anchored ? "secure \the [src] in place."  : "remove the securing bolts."]</span>")
 		anchored = !anchored
 		setDensity(anchored)

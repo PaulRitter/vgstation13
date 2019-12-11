@@ -133,7 +133,7 @@
 			new /obj/structure/closet/body_bag(src.loc)
 			new /obj/item/stack/sheet/metal(src.loc,5)
 			qdel(src)
-	if(iswrench(P))
+	if(can_wrench(P))
 		playsound(src, 'sound/items/Ratchet.ogg', 50, 1)
 		if(dir==4)
 			dir=8

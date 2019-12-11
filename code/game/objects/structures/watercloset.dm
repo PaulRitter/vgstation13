@@ -73,7 +73,7 @@
 	icon_state = "toilet[open][cistern]"
 
 /obj/structure/toilet/attackby(obj/item/I as obj, mob/living/user as mob)
-	if(iswrench(I))
+	if(can_wrench(I))
 		to_chat(user, "<span class='notice'>You [anchored ? "un":""]bolt \the [src]'s grounding lines.</span>")
 		anchored = !anchored
 	if(anchored == 0)
@@ -264,7 +264,7 @@
 	if(I.type == /obj/item/device/analyzer)
 		to_chat(user, "<span class='notice'>The water's temperature seems to be [watertemp].</span>")
 	if(panel_open) //The panel is open
-		if(iswrench(I))
+		if(can_wrench(I))
 			user.visible_message("<span class='warning'>[user] starts adjusting the bolts on \the [src].</span>", \
 								 "<span class='notice'>You start adjusting the bolts on \the [src].</span>")
 			playsound(src, 'sound/items/Ratchet.ogg', 100, 1)
@@ -278,7 +278,7 @@
 								 "<span class='notice'>You bolt \the [src] to the floor.</span>")
 					anchored = 1
 	else
-		if(iswrench(I))
+		if(can_wrench(I))
 			user.visible_message("<span class='warning'>[user] begins to adjust \the [src]'s temperature valve with \a [I.name].</span>", \
 								 "<span class='notice'>You begin to adjust \the [src]'s temperature valve with \a [I.name].</span>")
 			if(do_after(user, src, 50))
@@ -523,7 +523,7 @@
 		to_chat(user, "<span class='warning'>Someone's already washing here.</span>")
 		return
 
-	if(iswrench(O))
+	if(can_wrench(O))
 		to_chat(user, "<span class='notice'>You [anchored ? "un":""]bolt \the [src]'s grounding lines.</span>")
 		anchored = !anchored
 	if(anchored == 0)
