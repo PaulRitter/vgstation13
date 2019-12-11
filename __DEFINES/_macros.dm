@@ -228,10 +228,10 @@
 
 #define format_examine(A,B) "<span class = 'info'><a HREF='?src=\ref[user];lookitem=\ref[A]'>[B].</a></span>"
 
-//Interaction makros
-#define can_wrench(A) A.interaction_flags() & CAN_WRENCH
+//Interaction macros
+#define can_wrench(A) A.interaction_flags() & INTERACT_CAN_WRENCH
 
-#define can_wrench_strong(A) A.interaction_flags() & CAN_WRENCH_STRONG
+#define can_wrench_strong(A) A.interaction_flags() & INTERACT_CAN_WRENCH_STRONG
 
 //Macros for roles/antags
 #define isfaction(A) (istype(A, /datum/faction))
