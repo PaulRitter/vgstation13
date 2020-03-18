@@ -208,15 +208,20 @@ var/list/beam_icon_cache = list()
 
 /obj/item/projectile/beam/proc/test_fire()
 	target = get_turf(original)
-	var/target_dir = get_dir(starting, target)
+	var/target_dir = get_cardinal_dir(starting, target)
 	target_angle = round(Get_Angle(starting,target))
 	spawn
 		var/x = 0
 		while(x < BEAM_MAX_STEPS)
 			var/atom/step = get_step(src, target_dir)
-			//if(!step)
-			//	message_admins("1")
-			//	break
+			message_admins("[x] [src.loc] [src.loc.x] [src.loc.y] -> [target_dir] [step]")
+			if(!step)
+				message_admins("1")
+				break
+
+			if(kill_count < 1)
+				message_admins("5")
+				break
 
 			if(travel_range)
 				if(get_exact_dist(starting, get_turf(src)) > travel_range)
@@ -225,23 +230,24 @@ var/list/beam_icon_cache = list()
 
 			if(isnull(loc))
 				message_admins("3")
-				break
+				continue
 
 			if(bump_original_check())
 				message_admins("4")
-				break
+				continue
 
 			if(loc.timestopped) //maybe add a cooldown here?
 				continue
 
 			Move(step)
-			drawIconAt(src.loc, target_dir)
+			drawIconAt(loc, target_dir)
 			x++
+		message_admins("ended")
 		bullet_die()
 
 
 
-/obj/item/projectile/beam/proc/drawIconAt(var/turf/pos, var/target_dir)
+/obj/item/projectile/beam/proc/drawIconAt(var/atom/at_pos, var/target_dir)
 	var/icon_ref = "[icon_state]_angle[target_angle]_pX[PixelX]_pY[PixelY]_color[beam_color]"
 	update_pixel()
 
@@ -257,8 +263,8 @@ var/list/beam_icon_cache = list()
 		I.layer = PROJECTILE_LAYER
 		beam_master[icon_ref] = I //And cache it!
 
-	pos.overlays += beam_master[icon_ref]
-	var/ref = "\ref[pos]"
+	at_pos.overlays += beam_master[icon_ref]
+	var/ref = "\ref[at_pos]"
 	spawn(3)
 		locate(ref).overlays -= beam_master[icon_ref]
 
@@ -726,7 +732,7 @@ var/list/laser_tag_vests = list(/obj/item/clothing/suit/tag/redtag, /obj/item/cl
 					var/obj/item/weapon/gun/energy/tag/their_gun = M.held_items[taggun_index]
 					their_gun.cooldown(target_tag.my_laser_tag_game.disable_time/2)
 				M.Knockdown(target_tag.my_laser_tag_game.stun_time/2)
-				M.Stun(target_tag.my_laser_tag_game.stun_time/2)	
+				M.Stun(target_tag.my_laser_tag_game.stun_time/2)
 				var/obj/item/weapon/gun/energy/tag/taggun = shot_from
 				if(istype(taggun))
 					taggun.score()
