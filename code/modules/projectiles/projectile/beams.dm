@@ -57,9 +57,12 @@ var/list/beam_master = list()
 
 	target_angle = round(Get_Angle(starting,target))
 
+	test_fire()
+
 	return 1
 
 /obj/item/projectile/beam/process()
+	return
 	var/lastposition = loc
 	var/reference = "\ref[src]" //So we do not have to recalculate it a ton
 
@@ -199,6 +202,65 @@ var/list/beam_master = list()
 
 
 	return reference
+
+
+var/list/beam_icon_cache = list()
+
+/obj/item/projectile/beam/proc/test_fire()
+	target = get_turf(original)
+	var/target_dir = get_dir(starting, target)
+	target_angle = round(Get_Angle(starting,target))
+	spawn
+		var/x = 0
+		while(x < BEAM_MAX_STEPS)
+			var/atom/step = get_step(src, target_dir)
+			//if(!step)
+			//	message_admins("1")
+			//	break
+
+			if(travel_range)
+				if(get_exact_dist(starting, get_turf(src)) > travel_range)
+					message_admins("2")
+					break
+
+			if(isnull(loc))
+				message_admins("3")
+				break
+
+			if(bump_original_check())
+				message_admins("4")
+				break
+
+			if(loc.timestopped) //maybe add a cooldown here?
+				continue
+
+			Move(step)
+			drawIconAt(src.loc, target_dir)
+			x++
+		bullet_die()
+
+
+
+/obj/item/projectile/beam/proc/drawIconAt(var/turf/pos, var/target_dir)
+	var/icon_ref = "[icon_state]_angle[target_angle]_pX[PixelX]_pY[PixelY]_color[beam_color]"
+	update_pixel()
+
+	//If the icon has not been added yet
+	if( !(icon_ref in beam_icon_cache))
+		var/image/I = image(icon,"[icon_state]_pixel",dir = target_dir) //Generate it.
+		if(beam_color)
+			I.color = beam_color
+		I.transform = turn(I.transform, target_angle+45)
+		I.pixel_x = PixelX
+		I.pixel_y = PixelY
+		I.plane = EFFECTS_PLANE
+		I.layer = PROJECTILE_LAYER
+		beam_master[icon_ref] = I //And cache it!
+
+	pos.overlays += beam_master[icon_ref]
+	var/ref = "\ref[pos]"
+	spawn(3)
+		locate(ref).overlays -= beam_master[icon_ref]
 
 
 /obj/item/projectile/beam/dumbfire(var/dir)
